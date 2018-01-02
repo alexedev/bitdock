@@ -68,8 +68,8 @@ const updateCrypto = (coin) => {
 
 const updateView = (coin, crypto) => {
   document.querySelector('.js-summary').textContent = ''
-  document.querySelector(`.${coin}-js-btc`).textContent = `$${crypto.BTC}`
-  document.querySelector(`.${coin}-js-eth`).textContent = `€${crypto.ETH}`
+  document.querySelector(`.${coin}-js-btc`).textContent = `${crypto.BTC}`
+  document.querySelector(`.${coin}-js-eth`).textContent = `${crypto.ETH}`
 
 }
 
