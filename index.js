@@ -1,6 +1,6 @@
 const {ipcRenderer, shell} = require('electron')
 var coins = ['BTC','ETH', 'LTC', 'DASH', 'ZEC', 'XRP']
-var currency = 'USD'
+var currency = 'BTC'
 var usercrypto = 'BTC'
 
 
@@ -39,7 +39,7 @@ function update() {
 
 const updateCrypto = (coin) => {
   // const url = `https://api.coindesk.com/v1/bpi/currentprice.json`
-  const url = `https://min-api.cryptocompare.com/data/price?fsym=${coin}&tsyms=GBP,USD,EUR,AUD`
+  const url = `https://min-api.cryptocompare.com/data/price?fsym=${coin}&tsyms=BTC&e=binance`
 
   fetch(url)
   .then(
@@ -68,19 +68,8 @@ const updateCrypto = (coin) => {
 
 const updateView = (coin, crypto) => {
   document.querySelector('.js-summary').textContent = ''
-  if (coin === 'XRP') {
-    document.querySelector(`.${coin}-js-usd`).textContent = `$${crypto.USD.toFixed(2)}`
-    document.querySelector(`.${coin}-js-gbp`).textContent = `£${crypto.GBP.toFixed(2)}`
-    document.querySelector(`.${coin}-js-eur`).textContent = `€${crypto.EUR.toFixed(2)}`
-    document.querySelector(`.${coin}-js-aud`).textContent = `$${crypto.AUD.toFixed(2)}`
-  }
-
-  else {
-    document.querySelector(`.${coin}-js-usd`).textContent = `$${Math.round(crypto.USD)}`
-    document.querySelector(`.${coin}-js-gbp`).textContent = `£${Math.round(crypto.GBP)}`
-    document.querySelector(`.${coin}-js-eur`).textContent = `€${Math.round(crypto.EUR)}`
-    document.querySelector(`.${coin}-js-aud`).textContent = `$${Math.round(crypto.AUD)}`
-  }
+  document.querySelector(`.${coin}-js-usd`).textContent = `$${crypto.BTC}`
+    document.querySelector(`.${coin}-js-eur`).textContent = `€${crypto.ETH}`
 
 }
 
@@ -126,10 +115,9 @@ ipcRenderer.on('show-update', function (event) {
 })
 
 
-const oneMinute = 10 * 60 * 100
-// Refresh currency every minute
-setInterval(update, oneMinute)
+// Refresh currency every second
+setInterval(update, 1000)
 // Check version every minute
-setInterval(checkVersion, oneMinute)
+setInterval(checkVersion, 60000)
 // Update initial currency when loaded
 document.addEventListener('DOMContentLoaded', init)
