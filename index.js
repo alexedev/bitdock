@@ -1,7 +1,7 @@
 const {ipcRenderer, shell} = require('electron')
-var coins = ['BTC','ETH', 'LTC', 'DASH', 'ZEC', 'XRP']
+var coins = ['LTC', 'XRP', 'XML', 'ADA', 'TRX', 'FUEL', 'IOTA', 'XVG']
 var currency = 'BTC'
-var usercrypto = 'BTC'
+var usercrypto = 'LTC'
 
 
 document.addEventListener('click', (event) => {
@@ -39,7 +39,7 @@ function update() {
 
 const updateCrypto = (coin) => {
   // const url = `https://api.coindesk.com/v1/bpi/currentprice.json`
-  const url = `https://min-api.cryptocompare.com/data/price?fsym=${coin}&tsyms=BTC&e=binance`
+  const url = `https://min-api.cryptocompare.com/data/price?fsym=${coin}&tsyms=BTC,ETH&e=binance`
 
   fetch(url)
   .then(
@@ -68,8 +68,8 @@ const updateCrypto = (coin) => {
 
 const updateView = (coin, crypto) => {
   document.querySelector('.js-summary').textContent = ''
-  document.querySelector(`.${coin}-js-usd`).textContent = `$${crypto.BTC}`
-    document.querySelector(`.${coin}-js-eur`).textContent = `€${crypto.ETH}`
+  document.querySelector(`.${coin}-js-btc`).textContent = `$${crypto.BTC}`
+  document.querySelector(`.${coin}-js-eth`).textContent = `€${crypto.ETH}`
 
 }
 
